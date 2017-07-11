@@ -13,7 +13,7 @@ import io.larkin.phdplatformer.domain.Pickup;
 import io.larkin.phdplatformer.repository.PickupRepository;
 
 @Controller
-@RequestMapping("/pickup")
+@RequestMapping("/api/pickup")
 public class PickupController {
 
 	@Autowired
