@@ -1,4 +1,4 @@
-package io.larkin.phdplatformer.domain;
+package io.larkin.phdplatformer.response;
 
 /**
  * Ensure a properly formatted JSON response, even when only true or false is returned
@@ -6,12 +6,12 @@ package io.larkin.phdplatformer.domain;
  * @author Larkin.Cunningham
  *
  */
-public class SimpleResponse {
+public class BooleanResponseWithMessage {
 
-	public SimpleResponse(Boolean response) {
+	public BooleanResponseWithMessage(Boolean response) {
 		this.response = response;
 	}
-	public SimpleResponse(Boolean response, String message) {
+	public BooleanResponseWithMessage(Boolean response, String message) {
 		this.response = response;
 		this.message = message;
 	}
