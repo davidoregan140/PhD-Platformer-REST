@@ -27,7 +27,7 @@ public class UserRepository {
 	 * @return User object
 	 */
 	public User get(String username) {
-		String sql = "SELECT username, league FROM users WHERE username = ?";
+		String sql = "SELECT username, league FROM user WHERE username = ?";
 		Map<String, Object> m = template.queryForMap(sql, new Object[] {username});
 		User u = new User();
 		u.setUsername(m.get("username").toString());
@@ -36,7 +36,7 @@ public class UserRepository {
 	}
 	
 	public boolean authenticate(String username, String password) {
-		String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
+		String sql = "SELECT COUNT(*) FROM user WHERE username = ? AND password = ?";
 		int count = template.queryForObject(sql, new Object[] {username, password}, Integer.class);
 		if (count > 0) {
 			return true;
@@ -45,7 +45,7 @@ public class UserRepository {
 	}
 	
 	public boolean exists(String username) {
-		String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+		String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
 		int count = template.queryForObject(sql, new Object[] {username}, Integer.class);
 		if (count > 0) {
 			return true;
