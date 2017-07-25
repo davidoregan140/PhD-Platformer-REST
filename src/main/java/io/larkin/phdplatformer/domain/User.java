@@ -18,7 +18,16 @@ public class User {
 	private String league;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<UserAchievement> achievements;
+	private List<UserAchievement> userAchievements;
+	
+	public User() {
+		super();
+	}
+	
+	public User(String username) {
+		super();
+		this.username = username;
+	}
 
 	public String getUsername() {
 		return username;

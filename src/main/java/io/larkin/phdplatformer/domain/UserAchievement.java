@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@JsonIgnoreProperties(value = { "user" })
+//@JsonIgnoreProperties(value = { "user" })
 public class UserAchievement implements Serializable {
 
 	/**

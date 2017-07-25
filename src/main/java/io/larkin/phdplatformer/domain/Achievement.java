@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Achievement {
 	
-	@OneToMany(mappedBy = "achievement", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "achievement")
 	private List<UserAchievement> userAchievements;
 
 	@Id
