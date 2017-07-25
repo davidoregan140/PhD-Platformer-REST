@@ -1,5 +1,7 @@
 package io.larkin.phdplatformer.controller;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -9,16 +11,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import io.larkin.phdplatformer.domain.Achievement;
 import io.larkin.phdplatformer.domain.User;
+import io.larkin.phdplatformer.domain.UserAchievement;
+import io.larkin.phdplatformer.repository.AchievementRepository;
+import io.larkin.phdplatformer.repository.UserAchievementRepository;
 import io.larkin.phdplatformer.repository.UserRepository;
 import io.larkin.phdplatformer.response.BooleanResponseWithMessage;
 
 @Controller
 @RequestMapping("/api/user")
-public class AuthenticationController {
+public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	UserAchievementRepository userAchievementRepository;
+	
+	@Autowired
+	AchievementRepository achievementRepository;
 	
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -44,6 +56,7 @@ public class AuthenticationController {
 	
 	@RequestMapping(value = "/register/{username}/{password}/{league}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
+	@Transactional
 	public @ResponseBody BooleanResponseWithMessage register(@PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("league") String league) {
 		
 		// TODO: add some rules to check first, e.g. username length, password complexity
@@ -59,6 +72,18 @@ public class AuthenticationController {
 				u.setLeague("");
 			}
 			userRepository.create(u);
+			
+			// Easier to just add all the achievements to the user
+			Iterable<Achievement> achievements = achievementRepository.findAll();
+			for (Achievement a : achievements) {
+				UserAchievement ua = new UserAchievement();
+				ua.setUser(u);
+				ua.setAchievement(a);
+				ua.setProgress(0);
+				ua.setIsAchieved(false);
+				userAchievementRepository.save(ua);
+			}
+			
 			return new BooleanResponseWithMessage(true, "User successfully registered. You can now login.");
 		} else {
 			return new BooleanResponseWithMessage(false, "Username already exists. Please try a different username.");
