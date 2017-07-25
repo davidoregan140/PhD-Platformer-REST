@@ -1,6 +1,7 @@
 package io.larkin.phdplatformer.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,8 @@ public class UserAchievement implements Serializable {
 	private Boolean isAchieved;
 	
 	private Integer progress;
+	
+	private Date dateAchieved;
 	
 	@ManyToOne
 	@JoinColumn(name = "username")
@@ -75,6 +78,13 @@ public class UserAchievement implements Serializable {
 	public void setAchievement(Achievement achievement) {
 		this.achievement = achievement;
 	}
-	
+
+	public Date getDateAchieved() {
+		return dateAchieved;
+	}
+
+	public void setDateAchieved(Date dateAchieved) {
+		this.dateAchieved = dateAchieved;
+	}
 	
 }

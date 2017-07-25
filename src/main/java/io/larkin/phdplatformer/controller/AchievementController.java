@@ -63,6 +63,10 @@ public class AchievementController {
 	@Transactional
 	public void saveAll(@RequestBody UserAchievementsRequest request) {
 		for (int i = 0; i < request.getUserAchievements().length; i++) {
+			if (request.getUserAchievements()[i].getId() == 0) {
+				// New achievement to add
+				jdbcUserAchievementRepository.add(request.getUserAchievements()[i]);
+			}
 			jdbcUserAchievementRepository.update(request.getUserAchievements()[i]);
 		}
 	}

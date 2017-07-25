@@ -16,4 +16,9 @@ public class JdbcUserAchievementRepository {
 		String sql = "UPDATE user_achievement SET is_achieved = ?, progress = ? WHERE id = ?";
 		jdbcTemplate.update(sql, new Object[] {ua.getIsAchieved(), ua.getProgress(), ua.getId()});
 	}
+	
+	public void add(UserAchievement ua) {
+		String sql = "INSERT INTO user_achievement (username, achievement_id, is_achieved, progress) VALUES (?, ?, ?, ?)";
+		jdbcTemplate.update(sql, new Object[] {ua.getUser().getUsername(), ua.getAchievement().getId(), ua.getIsAchieved(), ua.getProgress()});
+	}
 }

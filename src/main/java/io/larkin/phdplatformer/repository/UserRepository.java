@@ -54,7 +54,7 @@ public class UserRepository {
 	}
 	
 	public void create(User u) {
-		String sql = "INSERT INTO user (username, password, league) VALUES (?, ?, ?)";
-		template.update(sql, new Object[] {u.getUsername(), u.getPassword(), u.getLeague()});
+		String sql = "INSERT INTO user (username, password, league, email) VALUES (?, ?, ?, ?)";
+		template.update(sql, new Object[] {u.getUsername(), u.getPassword(), u.getLeague(), u.getEmail()});
 	}
 }

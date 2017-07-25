@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,30 +55,24 @@ public class UserController {
 		return new User();
 	}
 	
-	@RequestMapping(value = "/register/{username}/{password}/{league}", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	@Transactional
-	public @ResponseBody BooleanResponseWithMessage register(@PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("league") String league) {
+	public @ResponseBody BooleanResponseWithMessage register(@RequestBody User user) {
 		
 		// TODO: add some rules to check first, e.g. username length, password complexity
 		
-		if (!userRepository.exists(username)) {
-			User u = new User();
-			u.setUsername(username);
-			u.setPassword(password);
-			if (!league.equals("--null--")) {
-				u.setLeague(league);
+		if (!userRepository.exists(user.getUsername())) {
+			if (user.getLeague().equals("--null--")) {
+				user.setLeague("");
 			}
-			else {
-				u.setLeague("");
-			}
-			userRepository.create(u);
+			userRepository.create(user);
 			
 			// Easier to just add all the achievements to the user
 			Iterable<Achievement> achievements = achievementRepository.findAll();
 			for (Achievement a : achievements) {
 				UserAchievement ua = new UserAchievement();
-				ua.setUser(u);
+				ua.setUser(user);
 				ua.setAchievement(a);
 				ua.setProgress(0);
 				ua.setIsAchieved(false);
