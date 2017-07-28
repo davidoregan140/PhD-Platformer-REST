@@ -9,10 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"username", "achievement_id"}))
 //@JsonIgnoreProperties(value = { "user" })
 public class UserAchievement implements Serializable {
 
