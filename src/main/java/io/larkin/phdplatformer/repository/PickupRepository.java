@@ -13,8 +13,8 @@ public class PickupRepository {
 	@Autowired
 	JdbcTemplate template;
 	
-	public Pickup get(String id) {
-		String sql = "SELECT id, inGameEffect, realWorldEffect FROM pickups WHERE id = ?";
-		return template.queryForObject(sql, new Object[] {id}, new PickupRowMapper());
+	public Pickup get(String id, String game) {
+		String sql = "SELECT * FROM pickups WHERE id = ? AND pickups.game = ?";
+		return template.queryForObject(sql, new Object[] {id, game}, new PickupRowMapper());
 	}
 }

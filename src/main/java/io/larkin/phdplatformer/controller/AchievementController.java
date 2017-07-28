@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import io.larkin.phdplatformer.domain.UserAchievement;
 import io.larkin.phdplatformer.domain.Achievement;
+import io.larkin.phdplatformer.domain.Game;
 import io.larkin.phdplatformer.domain.User;
 import io.larkin.phdplatformer.repository.AchievementRepository;
 import io.larkin.phdplatformer.repository.JdbcUserAchievementRepository;
@@ -38,25 +39,17 @@ public class AchievementController {
 	@Autowired
 	AchievementRepository achievementRepository;
 	
-	@RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/{username}/game/{game}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody UserAchievementsResponse getAchievements(@PathVariable("username") String username) {
+	public @ResponseBody UserAchievementsResponse getAchievements(@PathVariable("username") String username, @PathVariable("game") String game) {
 		
 		User u = new User();
 		u.setUsername(username);
+		Game g = new Game(game);
 		
-		List<UserAchievement> achievements = userAchievementRepository.findByUser(u);
+		List<UserAchievement> achievements = userAchievementRepository.findByUserAndGame(u, g);
 		
 		return new UserAchievementsResponse(achievements);
-	}
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody AchievementsResponse getAllAchievements() {
-		
-		Iterable<Achievement> achievements = achievementRepository.findAll();
-		
-		return new AchievementsResponse(achievements);
 	}
 	
 	@RequestMapping(value = "/saveall", method = RequestMethod.PUT)

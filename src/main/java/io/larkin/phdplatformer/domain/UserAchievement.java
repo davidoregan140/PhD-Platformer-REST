@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"username", "achievement_id"}))
-//@JsonIgnoreProperties(value = { "user" })
+@JsonIgnoreProperties(value = { "user", "game" })
 public class UserAchievement implements Serializable {
 
 	/**
@@ -35,6 +35,10 @@ public class UserAchievement implements Serializable {
 	private Boolean isAchieved;
 	
 	private Integer progress;
+	
+	@ManyToOne
+	@JoinColumn(name = "game")	
+	private Game game;
 	
 	private Date lastUpdate;
 	
@@ -88,6 +92,14 @@ public class UserAchievement implements Serializable {
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 }

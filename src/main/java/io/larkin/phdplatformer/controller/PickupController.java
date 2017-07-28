@@ -19,10 +19,10 @@ public class PickupController {
 	@Autowired
 	PickupRepository pickupRepository;
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/{game}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Pickup getById(@PathVariable("id") String id) {
-		Pickup p = pickupRepository.get(id);
+	public @ResponseBody Pickup getById(@PathVariable("id") String id, @PathVariable("game") String game) {
+		Pickup p = pickupRepository.get(id, game);
 		return p;
 	}
 }

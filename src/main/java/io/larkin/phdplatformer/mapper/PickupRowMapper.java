@@ -16,6 +16,7 @@ public class PickupRowMapper implements RowMapper<Pickup> {
 		p.setId(rs.getString("id"));
 		p.setInGameEffect(rs.getString("inGameEffect"));
 		p.setRealWorldEffect(rs.getString("realWorldEffect"));
+		p.setGame(rs.getString("game"));
 		
 		return p;
 	}

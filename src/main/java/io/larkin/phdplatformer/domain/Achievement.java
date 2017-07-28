@@ -16,6 +16,8 @@ public class Achievement {
 	@Id
 	private String id;
 	
+	private String game;
+	
 	private String title;
 	
 	private String description;
@@ -52,5 +54,13 @@ public class Achievement {
 
 	public void setTarget(int target) {
 		this.target = target;
+	}
+
+	public String getGame() {
+		return game;
+	}
+
+	public void setGame(String game) {
+		this.game = game;
 	}
 }
