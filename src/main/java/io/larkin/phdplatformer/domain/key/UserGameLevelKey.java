@@ -11,13 +11,15 @@ public class UserGameLevelKey implements Serializable {
 	
 	public String game;
 	
-	public String level;
+	public String levelName;
+	
+	public UserGameLevelKey() { }
 
 	public UserGameLevelKey(String username, String game, String level) {
 		super();
 		this.username = username;
 		this.game = game;
-		this.level = level;
+		this.levelName = level;
 	}
 	
 }

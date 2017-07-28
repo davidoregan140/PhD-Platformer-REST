@@ -1,5 +1,7 @@
 package io.larkin.phdplatformer.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -24,18 +26,23 @@ public class LevelController {
 	public void complete(@RequestBody UserLevelComplete request) {
 		UserLevelComplete ulc = ulcRepository.findOne(request.getKey());
 		boolean saveIt = false;
+		Date now = new Date(new java.util.Date().getTime());
 		if (ulc != null) {
 			
 			if (ulc.getHighScore() <= request.getHighScore()) {
 				ulc.setHighScore(request.getHighScore());
+				ulc.setHighScoreDate(now);
 				saveIt = true;
 			}
-			if (ulc.getSecondsToComplete() >= request.getSecondsToComplete()) {
+			if (ulc.getSecondsToComplete() > request.getSecondsToComplete()) {
 				ulc.setSecondsToComplete(request.getSecondsToComplete());
+				ulc.setFastestTimeDate(now);
 				saveIt = true;
 			}
 		} else {
 			ulc = request;
+			ulc.setHighScoreDate(now);
+			ulc.setFastestTimeDate(now);
 			saveIt = true;
 		}
 		if (saveIt) {

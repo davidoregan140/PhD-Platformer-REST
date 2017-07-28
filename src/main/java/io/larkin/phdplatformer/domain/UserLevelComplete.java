@@ -1,5 +1,7 @@
 package io.larkin.phdplatformer.domain;
 
+import java.sql.Date;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -13,7 +15,11 @@ public class UserLevelComplete {
 	
 	private int highScore;
 	
+	private Date highScoreDate;
+	
 	private int secondsToComplete;
+	
+	private Date fastestTimeDate;
 
 	public UserGameLevelKey getKey() {
 		return key;
@@ -38,6 +44,21 @@ public class UserLevelComplete {
 	public void setSecondsToComplete(int secondsToComplete) {
 		this.secondsToComplete = secondsToComplete;
 	}
-	
-	
+
+	public Date getHighScoreDate() {
+		return highScoreDate;
+	}
+
+	public void setHighScoreDate(Date highScoreDate) {
+		this.highScoreDate = highScoreDate;
+	}
+
+	public Date getFastestTimeDate() {
+		return fastestTimeDate;
+	}
+
+	public void setFastestTimeDate(Date fastestTimeDate) {
+		this.fastestTimeDate = fastestTimeDate;
+	}
+
 }
