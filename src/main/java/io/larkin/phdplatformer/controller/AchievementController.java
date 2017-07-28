@@ -1,5 +1,6 @@
 package io.larkin.phdplatformer.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -60,9 +61,11 @@ public class AchievementController {
 	
 	@RequestMapping(value = "/saveall", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	@Transactional
+	//@Transactional
 	public void saveAll(@RequestBody UserAchievementsRequest request) {
 		for (int i = 0; i < request.getUserAchievements().length; i++) {
+			// update timestamp 
+			request.getUserAchievements()[i].setLastUpdate(new Date(new java.util.Date().getTime()));
 			if (request.getUserAchievements()[i].getId() == 0) {
 				// New achievement to add
 				jdbcUserAchievementRepository.add(request.getUserAchievements()[i]);

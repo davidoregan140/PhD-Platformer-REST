@@ -38,7 +38,7 @@ public class UserRepository {
 	}
 	
 	public boolean authenticate(String username, String password) {
-		String sql = "SELECT COUNT(*) FROM user WHERE username = ? AND password = ?";
+		String sql = "SELECT COUNT(*) FROM user WHERE username = ? AND BINARY password = ?";
 		int count = template.queryForObject(sql, new Object[] {username, password}, Integer.class);
 		if (count > 0) {
 			return true;
