@@ -2,6 +2,7 @@ package io.larkin.phdplatformer.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import io.larkin.phdplatformer.domain.UserAchievement;
@@ -12,6 +13,7 @@ public interface UserAchievementRepository extends CrudRepository<UserAchievemen
 
 	List<UserAchievement> findByUser(User user);
 	
-	List<UserAchievement> findByUserAndGame(User user, Game game);
+	@Query("from UserAchievement ua where ua.user.username = ?1 and ua.game.title = ?2")
+	List<UserAchievement> findByUserAndGame(String username, String game);
 	
 }

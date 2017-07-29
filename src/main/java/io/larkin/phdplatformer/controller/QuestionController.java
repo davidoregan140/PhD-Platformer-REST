@@ -31,17 +31,10 @@ public class QuestionController {
 		return q;
 	}
 
-	@RequestMapping("/level/{name}/full")
+	@RequestMapping("game/{game}/level/{level}/full")
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Level levelQs(@PathVariable("name") String name) {
-		Level l = levelRepository.findOne(name);
+	public @ResponseBody Level levelQs(@PathVariable("level") String level, @PathVariable("game") String game) {
+		Level l = levelRepository.findByNameAndGame(level, game);
 		return l;
 	}
-	
-	@RequestMapping("/level/{name}")
-	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody IntegerListResponse levelQIds(@PathVariable("name") String name) {
-		return new IntegerListResponse(questionRepository.getIdByLevelName(name));
-	}
-
 }

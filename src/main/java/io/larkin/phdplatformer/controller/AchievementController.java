@@ -43,11 +43,7 @@ public class AchievementController {
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody UserAchievementsResponse getAchievements(@PathVariable("username") String username, @PathVariable("game") String game) {
 		
-		User u = new User();
-		u.setUsername(username);
-		Game g = new Game(game);
-		
-		List<UserAchievement> achievements = userAchievementRepository.findByUserAndGame(u, g);
+		List<UserAchievement> achievements = userAchievementRepository.findByUserAndGame(username, game);
 		
 		return new UserAchievementsResponse(achievements);
 	}

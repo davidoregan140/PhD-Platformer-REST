@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -11,7 +13,10 @@ import javax.persistence.OneToMany;
 public class Game {
 	
 	@Id
-	private String game;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	private String title;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private List<Level> levels;
@@ -19,18 +24,18 @@ public class Game {
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private List<UserAchievement> userAchievemments;
 
-	public Game(String game) {
-		this.game = game;
+	public Game(String title) {
+		this.title = title;
 	}
 	
 	public Game() {}
 
-	public String getGame() {
-		return game;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setGame(String game) {
-		this.game = game;
+	public void setGame(String title) {
+		this.title = title;
 	}
 
 	public List<Level> getLevels() {
@@ -47,6 +52,11 @@ public class Game {
 
 	public void setUserAchievemments(List<UserAchievement> userAchievemments) {
 		this.userAchievemments = userAchievemments;
+	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 	
 	

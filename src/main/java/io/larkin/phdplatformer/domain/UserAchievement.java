@@ -37,7 +37,7 @@ public class UserAchievement implements Serializable {
 	private Integer progress;
 	
 	@ManyToOne
-	@JoinColumn(name = "game")	
+	@JoinColumn(name = "game_id")	
 	private Game game;
 	
 	private Date lastUpdate;

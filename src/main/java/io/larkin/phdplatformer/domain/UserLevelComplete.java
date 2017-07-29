@@ -4,14 +4,32 @@ import java.sql.Date;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import io.larkin.phdplatformer.domain.key.UserGameLevelKey;
 
 @Entity
 public class UserLevelComplete {
 	
-	@EmbeddedId
-	private UserGameLevelKey key;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	public int getId() {
+		return id;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "level_id")	
+	private Level level;
+	
+	@ManyToOne
+	@JoinColumn(name = "username")
+	private User user;
 	
 	private int highScore;
 	
@@ -21,12 +39,20 @@ public class UserLevelComplete {
 	
 	private Date fastestTimeDate;
 
-	public UserGameLevelKey getKey() {
-		return key;
+	public User getUser() {
+		return user;
 	}
 
-	public void setKey(UserGameLevelKey key) {
-		this.key = key;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	public int getHighScore() {

@@ -24,7 +24,7 @@ public class LevelController {
 	@ResponseStatus(HttpStatus.OK)
 	//@Transactional
 	public void complete(@RequestBody UserLevelComplete request) {
-		UserLevelComplete ulc = ulcRepository.findOne(request.getKey());
+		UserLevelComplete ulc = ulcRepository.findOne(1);
 		boolean saveIt = false;
 		Date now = new Date(new java.util.Date().getTime());
 		if (ulc != null) {

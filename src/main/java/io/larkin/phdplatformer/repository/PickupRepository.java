@@ -14,7 +14,7 @@ public class PickupRepository {
 	JdbcTemplate template;
 	
 	public Pickup get(String id, String game) {
-		String sql = "SELECT * FROM pickups WHERE id = ? AND pickups.game = ?";
+		String sql = "SELECT p.id, p.game_id, p.inGameEffect, p.realWorldEffect FROM pickups p, game g WHERE p.id = ? AND p.game_id = g.id and g.title = ?";
 		return template.queryForObject(sql, new Object[] {id, game}, new PickupRowMapper());
 	}
 }

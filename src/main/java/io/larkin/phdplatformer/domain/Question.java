@@ -32,10 +32,8 @@ public class Question {
 	
 	private String reference;
 	
-	private String game;
-	
 	@ManyToOne
-	@JoinColumn(name = "level_name")	
+	@JoinColumn(name = "level_id")	
 	private Level level;
 
 	public int getId() {
@@ -76,14 +74,6 @@ public class Question {
 
 	public void setLevel(Level level) {
 		this.level = level;
-	}
-
-	public String getGame() {
-		return game;
-	}
-
-	public void setGame(String game) {
-		this.game = game;
 	}
 	
 }

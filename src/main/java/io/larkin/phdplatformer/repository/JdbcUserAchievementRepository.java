@@ -34,9 +34,9 @@ public class JdbcUserAchievementRepository {
 	 * @param ua
 	 */
 	public void add(UserAchievement ua) {
-		String sql = "INSERT INTO user_achievement (username, game, achievement_id, is_achieved, progress) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO user_achievement (username, game_id, achievement_id, is_achieved, progress) VALUES (?, ?, ?, ?, ?)";
 		try {
-			jdbcTemplate.update(sql, new Object[] {ua.getUser().getUsername(), ua.getGame().getGame(), ua.getAchievement().getId(), ua.getIsAchieved(), ua.getProgress()});
+			jdbcTemplate.update(sql, new Object[] {ua.getUser().getUsername(), ua.getGame().getId(), ua.getAchievement().getId(), ua.getIsAchieved(), ua.getProgress()});
 		} catch (Exception e) {
 			// likely to be a MySQLIntegrityConstraintViolationException that we can ignore
 		}

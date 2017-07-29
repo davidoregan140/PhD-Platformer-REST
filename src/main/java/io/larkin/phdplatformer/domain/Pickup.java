@@ -4,7 +4,7 @@ public class Pickup {
 	
 	private String id;
 	
-	private String game;
+	private int gameId;
 	
 	private String inGameEffect;
 	
@@ -34,12 +34,12 @@ public class Pickup {
 		this.realWorldEffect = realWorldEffect;
 	}
 
-	public String getGame() {
-		return game;
+	public int getGameId() {
+		return gameId;
 	}
 
-	public void setGame(String game) {
-		this.game = game;
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
 	}
 
 }

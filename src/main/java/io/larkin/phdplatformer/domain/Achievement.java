@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,7 +18,9 @@ public class Achievement {
 	@Id
 	private String id;
 	
-	private String game;
+	@ManyToOne
+	@JoinColumn(name = "game_id")	
+	private Game game;
 	
 	private String title;
 	
@@ -56,11 +60,11 @@ public class Achievement {
 		this.target = target;
 	}
 
-	public String getGame() {
+	public Game getGame() {
 		return game;
 	}
 
-	public void setGame(String game) {
+	public void setGame(Game game) {
 		this.game = game;
 	}
 }
