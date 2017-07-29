@@ -14,10 +14,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@JsonIgnoreProperties(value = { "level" })
+//@JsonIgnoreProperties(value = { "level" })
 public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,12 +30,14 @@ public class Question {
 	private String questionText;
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	public List<Answer> answers;
 	
 	private String reference;
 	
 	@ManyToOne
-	@JoinColumn(name = "level_id")	
+	@JoinColumn(name = "level_id")
+	@JsonBackReference
 	private Level level;
 
 	public int getId() {

@@ -12,11 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"username", "achievement_id"}))
-@JsonIgnoreProperties(value = { "user", "game" })
+//@JsonIgnoreProperties(value = { "user", "game" })
 public class UserAchievement implements Serializable {
 
 	/**
@@ -30,6 +31,7 @@ public class UserAchievement implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "achievement_id")
+	@JsonBackReference
 	private Achievement achievement;
 	
 	private Boolean isAchieved;
@@ -38,12 +40,14 @@ public class UserAchievement implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "game_id")	
+	@JsonBackReference
 	private Game game;
 	
 	private Date lastUpdate;
 	
 	@ManyToOne
 	@JoinColumn(name = "username")
+	@JsonBackReference
 	private User user;
 	
 	public int getId() {

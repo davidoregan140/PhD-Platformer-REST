@@ -10,10 +10,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@JsonIgnoreProperties(value = { "question" })
+//@JsonIgnoreProperties(value = { "question" })
 public class Answer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +26,7 @@ public class Answer {
 	
 	@ManyToOne
 	@JoinColumn(name = "question_id")	
+	@JsonBackReference
 	private Question question;
 	
 	private boolean isTheAnswer;

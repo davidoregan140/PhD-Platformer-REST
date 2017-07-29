@@ -11,9 +11,7 @@ import io.larkin.phdplatformer.domain.User;
 
 public interface UserAchievementRepository extends CrudRepository<UserAchievement, Integer>{
 
-	List<UserAchievement> findByUser(User user);
-	
-	@Query("from UserAchievement ua where ua.user.username = ?1 and ua.game.title = ?2")
-	List<UserAchievement> findByUserAndGame(String username, String game);
+	//@Query("from UserAchievement ua where ua.user.username = ?1 and ua.game.title = ?2")
+	List<UserAchievement> findByUserUsernameAndGameTitle(String username, String game);
 	
 }

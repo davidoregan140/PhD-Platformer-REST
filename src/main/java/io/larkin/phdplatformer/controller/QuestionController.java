@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import io.larkin.phdplatformer.domain.Level;
 import io.larkin.phdplatformer.domain.Question;
-import io.larkin.phdplatformer.repository.LevelRepository;
 import io.larkin.phdplatformer.repository.QuestionRepository;
-import io.larkin.phdplatformer.response.IntegerListResponse;
+import io.larkin.phdplatformer.response.QuestionsResponse;
 
 @Controller
 @RequestMapping("/api/question")
@@ -20,9 +18,6 @@ public class QuestionController {
 
 	@Autowired
 	QuestionRepository questionRepository;
-
-	@Autowired
-	LevelRepository levelRepository;
 	
 	@RequestMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
@@ -31,10 +26,9 @@ public class QuestionController {
 		return q;
 	}
 
-	@RequestMapping("game/{game}/level/{level}/full")
+	@RequestMapping("game/{game}/level/{level}")
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Level levelQs(@PathVariable("level") String level, @PathVariable("game") String game) {
-		Level l = levelRepository.findByNameAndGame(level, game);
-		return l;
+	public @ResponseBody QuestionsResponse levelQs(@PathVariable("level") String level, @PathVariable("game") String game) {
+		return new QuestionsResponse(questionRepository.findByGameLevel(level, game));
 	}
 }

@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import io.larkin.phdplatformer.domain.Question;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Import(PhDPlatformerApplication.class)
+@Profile("development")
 public class QuestionRepositoryTests {
 
 	@Autowired
@@ -33,9 +35,13 @@ public class QuestionRepositoryTests {
 
 	@Test
 	@Transactional
-	public void findQuestionsIdByName() {
-		List<Integer> list = questionRepository.getIdByLevelName("First");
-		assertEquals(2, list.size());
+	public void findByGameLevel() {
+		Iterable<Question> qs = questionRepository.findByGameLevel("PhD1", "PhDPlatformer");
+		int size = 0;
+		for(Question value : qs) {
+		   size++;
+		}
+		assertEquals(1, size);
 	}
 	
 }

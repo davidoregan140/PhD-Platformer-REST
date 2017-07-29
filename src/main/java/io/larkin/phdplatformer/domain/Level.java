@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Level {
 
@@ -22,9 +25,11 @@ public class Level {
 	
 	@ManyToOne
 	@JoinColumn(name = "game_id")	
+	@JsonBackReference
 	private Game game;
 	
 	@OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	public List<Question> questions;
 
 	public String getName() {
