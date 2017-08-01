@@ -21,12 +21,16 @@ public class Game {
 	private String title;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="game-level")
 	private List<Level> levels;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="game-userachievement")
 	private List<UserAchievement> userAchievemments;
+	
+	@OneToMany(mappedBy = "game")
+	@JsonManagedReference(value="game-achievement")
+	private List<Achievement> achievements;
 
 	public Game(String title) {
 		this.title = title;

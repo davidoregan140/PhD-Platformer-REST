@@ -25,13 +25,17 @@ public class Level {
 	
 	@ManyToOne
 	@JoinColumn(name = "game_id")	
-	@JsonBackReference
+	@JsonBackReference(value="game-level")
 	private Game game;
 	
 	@OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="level-question")
 	public List<Question> questions;
 
+	@OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
+	@JsonManagedReference(value="level-userlevelcomplete")
+	public List<UserLevelComplete> userLevelCompletions;
+	
 	public String getName() {
 		return name;
 	}

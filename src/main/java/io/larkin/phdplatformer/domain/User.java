@@ -24,8 +24,12 @@ public class User {
 	private String league;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="user-userachievement")
 	private List<UserAchievement> userAchievements;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonManagedReference(value="user-userlevelcomplete")
+	private List<UserLevelComplete> userLevelCompletions;
 	
 	public User() {
 		super();

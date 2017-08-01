@@ -14,6 +14,7 @@ import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"username", "achievement_id"}))
@@ -31,8 +32,13 @@ public class UserAchievement implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "achievement_id")
-	@JsonBackReference
+	@JsonBackReference(value="achievement-userachievement")
 	private Achievement achievement;
+	
+	@JsonProperty
+	public String getAchievementId() {
+	    return achievement == null ? null : achievement.getId();
+	}
 	
 	private Boolean isAchieved;
 	
@@ -40,14 +46,14 @@ public class UserAchievement implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "game_id")	
-	@JsonBackReference
+	@JsonBackReference(value="game-userachievement")
 	private Game game;
 	
 	private Date lastUpdate;
 	
 	@ManyToOne
 	@JoinColumn(name = "username")
-	@JsonBackReference
+	@JsonBackReference(value="user-userachievement")
 	private User user;
 	
 	public int getId() {

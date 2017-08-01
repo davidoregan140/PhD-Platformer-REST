@@ -9,4 +9,5 @@ public interface QuestionRepository extends CrudRepository<Question, Integer>{
 
 	@Query("from Question q where q.level.name = ?1 and q.level.game.title = ?2")
 	Iterable<Question> findByGameLevel(String level, String game);
+	// Could also use findByLevelNameAndLevelGameTitle
 }

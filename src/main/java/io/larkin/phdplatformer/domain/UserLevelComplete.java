@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import io.larkin.phdplatformer.domain.key.UserGameLevelKey;
 
 @Entity
@@ -24,11 +26,13 @@ public class UserLevelComplete {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "level_id")	
+	@JoinColumn(name = "level_id")
+	@JsonBackReference(value="level-userlevelcomplete")
 	private Level level;
 	
 	@ManyToOne
 	@JoinColumn(name = "username")
+	@JsonBackReference(value="user-userlevelcomplete")
 	private User user;
 	
 	private int highScore;

@@ -11,11 +11,13 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Achievement {
 	
 	@OneToMany(mappedBy = "achievement")
+	@JsonManagedReference(value="achievement-userachievement")
 	private List<UserAchievement> userAchievements;
 
 	@Id
@@ -23,7 +25,7 @@ public class Achievement {
 	
 	@ManyToOne
 	@JoinColumn(name = "game_id")	
-	@JsonBackReference
+	@JsonBackReference(value="game-achievement")
 	private Game game;
 	
 	private String title;

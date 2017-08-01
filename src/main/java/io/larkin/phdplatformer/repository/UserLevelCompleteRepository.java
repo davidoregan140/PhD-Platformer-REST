@@ -6,4 +6,5 @@ import io.larkin.phdplatformer.domain.UserLevelComplete;
 
 public interface UserLevelCompleteRepository extends CrudRepository<UserLevelComplete, Integer>{
 
+	UserLevelComplete findByLevelGameTitleAndLevelNameAndUserUsername(String game, String level, String username);
 }

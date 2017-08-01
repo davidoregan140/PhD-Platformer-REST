@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import io.larkin.phdplatformer.domain.UserLevelComplete;
+import io.larkin.phdplatformer.repository.LevelRepository;
 import io.larkin.phdplatformer.repository.UserLevelCompleteRepository;
+import io.larkin.phdplatformer.repository.UserRepository;
 
 @Controller
 @RequestMapping("/api/level")
@@ -20,15 +22,21 @@ public class LevelController {
 	@Autowired
 	UserLevelCompleteRepository ulcRepository;
 	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	LevelRepository levelRepository;
+	
 	@RequestMapping(value = "/complete", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	//@Transactional
 	public void complete(@RequestBody UserLevelComplete request) {
-		UserLevelComplete ulc = ulcRepository.findOne(1);
+		UserLevelComplete ulc = ulcRepository.findByLevelGameTitleAndLevelNameAndUserUsername(
+				request.getLevel().getGame().getTitle(), request.getLevel().getName(), request.getUser().getUsername());
 		boolean saveIt = false;
 		Date now = new Date(new java.util.Date().getTime());
 		if (ulc != null) {
-			
 			if (ulc.getHighScore() <= request.getHighScore()) {
 				ulc.setHighScore(request.getHighScore());
 				ulc.setHighScoreDate(now);
@@ -43,6 +51,8 @@ public class LevelController {
 			ulc = request;
 			ulc.setHighScoreDate(now);
 			ulc.setFastestTimeDate(now);
+			ulc.setLevel(levelRepository.findByNameAndGameTitle(request.getLevel().getName(), request.getLevel().getGame().getTitle()));
+			ulc.setUser(userRepository.get(request.getUser().getUsername()));
 			saveIt = true;
 		}
 		if (saveIt) {

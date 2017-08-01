@@ -30,14 +30,14 @@ public class Question {
 	private String questionText;
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="question-answer")
 	public List<Answer> answers;
 	
 	private String reference;
 	
 	@ManyToOne
 	@JoinColumn(name = "level_id")
-	@JsonBackReference
+	@JsonBackReference(value="level-question")
 	private Level level;
 
 	public int getId() {
